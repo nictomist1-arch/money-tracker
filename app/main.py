@@ -14,7 +14,7 @@ async def lifespan(app: FastAPI):
     yield 
     print("Shutting down...") 
  
-app = FastAPI(title="MoneyTracker API", version="1.0.0", lifespan=lifespan) 
+app = FastAPI(title="MoneyTracker API", version="1.0.0") 
  
 app.include_router(auth.router) 
 app.include_router(transactions.router) 
@@ -27,3 +27,6 @@ def read_root():
 @app.get("/health") 
 def health_check(): 
     return {"status": "healthy"} 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
