@@ -14,7 +14,7 @@ async def lifespan(app: FastAPI):
     yield 
     print("Shutting down...") 
  
-app = FastAPI(title="MoneyTracker API", version="1.0.0") 
+app = FastAPI(title="MoneyTracker API", version="1.0.0", lifespan=lifespan)
  
 app.include_router(auth.router) 
 app.include_router(transactions.router) 
