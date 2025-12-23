@@ -1,14 +1,30 @@
-from pydantic import BaseModel, EmailStr, ConfigDict
-from datetime import datetime
+from pydantic import BaseModel, ConfigDict
+from datetime import date, datetime
+from typing import Optional
+from enum import Enum
 
-class UserBase(BaseModel):
-    email: EmailStr
-    username: str
+class TransactionType(str, Enum):
+    INCOME = "income"
+    EXPENSE = "expense"
 
-class UserCreate(UserBase):
-    password: str
+class TransactionBase(BaseModel):
+    amount: float
+    date: date = date.today()  
+    description: Optional[str] = None
+    category_id: int
 
-class UserResponse(UserBase):
+class TransactionCreate(TransactionBase):
+    pass
+
+class TransactionUpdate(BaseModel):
+    amount: Optional[float] = None
+    date: Optional[date] = None
+    description: Optional[str] = None
+    category_id: Optional[int] = None
+
+class TransactionResponse(TransactionBase):
     id: int
+    user_id: int
     created_at: datetime
+    
     model_config = ConfigDict(from_attributes=True)
