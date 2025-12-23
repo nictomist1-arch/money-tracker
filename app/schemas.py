@@ -1,7 +1,8 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import date, datetime
 from typing import Optional
 from enum import Enum
+
 
 class TransactionType(str, Enum):
     INCOME = "income"
@@ -9,7 +10,7 @@ class TransactionType(str, Enum):
 
 class TransactionBase(BaseModel):
     amount: float
-    date: date = date.today()  
+    date: date = Field(default_factory=date.today) 
     description: Optional[str] = None
     category_id: int
 
