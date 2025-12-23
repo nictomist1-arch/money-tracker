@@ -11,11 +11,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="MoneyTracker API", version="1.0.0", lifespan=lifespan)
 
-# ЗАКОММЕНТИРУЙТЕ ВСЕ ИМПОРТЫ РОУТЕРОВ
-# from app.routers import auth, transactions, categories
-# app.include_router(auth.router)
-# app.include_router(transactions.router)
-# app.include_router(categories.router)
+from app.routers import auth, transactions, categories
+app.include_router(auth.router)
+app.include_router(transactions.router)
+app.include_router(categories.router)
 
 @app.get("/")
 def read_root():
